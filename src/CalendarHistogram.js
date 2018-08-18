@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { range } from 'lodash';
+import CalendarHeader from './components/CalendarHeader';
+import CalendarBody from './components/CalendarBody';
+import CalendarFooter from './components/CalendarFooter';
 
 import './styles/CalendarHistogram.css';
 
@@ -14,20 +16,11 @@ class CalendarHistogram extends Component {
   }
 
   render() {
-    // Get the first Sunday before the beginning of the month. This is the day that the calendar starts.
-    const firstDayOfCalendar = moment(this.state.currentDate).startOf('month').day(0);
-    const activeMonth = this.state.currentDate.month();
-    // 35 days = 5 weeks * 7 days
-
-    const table = range(42).map(() => {
-      const day = firstDayOfCalendar.day();
-      const date = firstDayOfCalendar.date();
-      const month = firstDayOfCalendar.month();
-      firstDayOfCalendar.add(1, 'days');
-      return <div className={`day ${(day === 0 || day === 6) ? 'weekend' : ''} ${(month === activeMonth) ? 'active' : 'inactive'}`} key={`date-${month}-${date}`}>{date}</div>;
-    });
-
-    return <div className="calendar">{table}</div>;
+    return <div className="calendarContainer" style={{width: this.props.width, margin: 'auto'}}>
+      <CalendarHeader currentDate={this.state.currentDate} />
+      <CalendarBody height={this.props.height} width={this.props.width} currentDate={this.state.currentDate} />
+      <CalendarFooter />
+    </div>;
   }
 }
 
