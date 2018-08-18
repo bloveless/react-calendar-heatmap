@@ -1,0 +1,60 @@
+.calendarContainer {
+  .calendarHeader {
+    padding: 10px 25px;
+    background-color: rgb(245, 245, 245);
+    border: 2px solid rgb(230, 230, 230);
+    border-bottom: none;
+    text-align: center;
+
+    .previousMonth, .nextMonth {
+      button {
+       background:none !important;
+       color: rgb(0, 145, 207);
+       border:none;
+       padding: 5px 10px !important;
+       outline: none;
+       font: inherit;
+       cursor: pointer;
+
+       &:hover {
+         text-decoration: underline;
+       }
+      }
+    }
+
+    .currentMonth {
+      display: inline-block;
+      width: 200px;
+    }
+  }
+
+  .calendarBody {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border: 1px solid rgb(230, 230, 230);
+    box-sizing: border-box;
+
+    .day {
+      display: inline-block;
+      height: calc(100% / 6);
+      width: calc(100% / 7);
+      border: 1px solid rgb(230, 230, 230);
+      box-sizing: border-box;
+      padding: 5px 0 0 5px;
+
+      &.weekend {
+        background-color: rgb(245, 245, 245);
+      }
+
+      &.inactive {
+        /* background-color: rgb(186, 186, 186); */
+        color: rgb(196, 196, 196);
+      }
+
+      &.active {
+        /* background-color: rgb(233, 233, 233); */
+      }
+    }
+  }
+}

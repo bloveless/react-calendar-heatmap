@@ -12,7 +12,11 @@
   "devDependencies": {
     "@babel/core": "^7.0.0-rc.1",
     "@storybook/react": "^3.4.10",
-    "babel-bridge": "^1.12.11"
+    "babel-bridge": "^1.12.11",
+    "css-loader": "^1.0.0",
+    "node-sass": "^4.9.3",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.22.1"
   },
   "dependencies": {
     "lodash.range": "^3.2.0",

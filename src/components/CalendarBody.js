@@ -5,7 +5,7 @@ import moment from 'moment';
 class CalendarBody extends Component {
   render() {
     // Get the first Sunday before the beginning of the month. This is the day that the calendar starts.
-    const firstDayOfCalendar = moment(this.props.currentDate).startOf('month').day(0);
+    const firstDayOfCalendar = this.props.currentDate.clone().startOf('month').day(0);
     const activeMonth = this.props.currentDate.month();
     // 35 days = 5 weeks * 7 days
 
