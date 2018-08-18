@@ -1,0 +1,23 @@
+{
+  "name": "histogram-calendar",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 9001 -c .storybook"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.0.0-rc.1",
+    "@storybook/react": "^3.4.10",
+    "babel-bridge": "^1.12.11"
+  },
+  "dependencies": {
+    "lodash.range": "^3.2.0",
+    "moment": "^2.22.2",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
+  }
+}

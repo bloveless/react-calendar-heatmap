@@ -1,0 +1,29 @@
+.calendar {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border: 1px solid rgb(230, 230, 230);
+  box-sizing: border-box;
+}
+
+.calendar .day {
+  display: inline-block;
+  height: calc(100% / 6);
+  width: calc(100% / 7);
+  border: 1px solid rgb(230, 230, 230);
+  box-sizing: border-box;
+  padding: 5px 0 0 5px;
+}
+
+.calendar .day.weekend {
+  background-color: rgb(245, 245, 245);
+}
+
+.calendar .day.inactive {
+  /* background-color: rgb(186, 186, 186); */
+  color: rgb(196, 196, 196);
+}
+
+.calendar .day.active {
+  /* background-color: rgb(233, 233, 233); */
+}
