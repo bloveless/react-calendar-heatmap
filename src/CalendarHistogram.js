@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { range } from 'lodash';
 
-import './DateHistogram.css';
+import './styles/CalendarHistogram.css';
 
-class DateHistogram extends Component {
+class CalendarHistogram extends Component {
   constructor(props) {
     super(props);
 
@@ -31,4 +31,4 @@ class DateHistogram extends Component {
   }
 }
 
-export default DateHistogram;
+export default CalendarHistogram;
