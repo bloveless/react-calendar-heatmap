@@ -57,4 +57,31 @@
       }
     }
   }
+
+  .calendarFooter {
+    text-align: center;
+    margin-top: 5px;
+
+    .minimumValue, .maximumValue {
+      display: inline-block;
+      position: relative;
+      top: -5px;
+    }
+
+    .minimumValue {
+      margin-right: 5px;
+    }
+
+    .gradient {
+      display: inline-block;
+      border: 2px solid rgb(230, 230, 230);
+      width: 150px;
+      height: 1em;
+      background-image: linear-gradient(to right, blue, red);
+    }
+
+    .maximumValue {
+      margin-left: 5px;
+    }
+  }
 }

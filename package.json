@@ -14,6 +14,11 @@
     "@storybook/react": "^3.4.10",
     "babel-bridge": "^1.12.11",
     "css-loader": "^1.0.0",
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
     "node-sass": "^4.9.3",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.22.1"
@@ -21,7 +26,9 @@
   "dependencies": {
     "lodash.range": "^3.2.0",
     "moment": "^2.22.2",
+    "prop-types": "^15.6.2",
     "react": "^16.4.2",
-    "react-dom": "^16.4.2"
+    "react-dom": "^16.4.2",
+    "react-moment-proptypes": "^1.6.0"
   }
 }

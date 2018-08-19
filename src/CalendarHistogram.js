@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import CalendarHeader from './components/CalendarHeader';
 import CalendarBody from './components/CalendarBody';
 import CalendarFooter from './components/CalendarFooter';
@@ -11,14 +12,26 @@ class CalendarHistogram extends Component {
     super(props);
 
     this.state = {
-      currentDate: moment('2018-08-18 12:00:00', "YYYY-MM-DD HH:mm:ss"),
-      histogramData: {
-        '2018-08-17': 10,
-        '2018-08-18': 100,
-        '2018-08-19': 200,
-        '2018-08-20': 250,
-      }
-    }
+      currentDate: moment('2018-08-18 12:00:00', 'YYYY-MM-DD HH:mm:ss'),
+      histogramData: [
+        {
+          date: '2018-08-17',
+          value: 10,
+        },
+        {
+          date: '2018-08-18',
+          value: 100,
+        },
+        {
+          date: '2018-08-19',
+          value: 200,
+        },
+        {
+          date: '2018-08-20',
+          value: 250,
+        },
+      ],
+    };
 
     this.handleClickNextMonth = this.handleClickNextMonth.bind(this);
     this.handleClickPreviousMonth = this.handleClickPreviousMonth.bind(this);
@@ -29,28 +42,47 @@ class CalendarHistogram extends Component {
   }
 
   handleClickNextMonth() {
+    const { currentDate } = this.state;
+
     this.setState({
-      currentDate: this.state.currentDate.add(1, 'month'),
+      currentDate: currentDate.add(1, 'month'),
     });
   }
 
   handleClickPreviousMonth() {
+    const { currentDate } = this.state;
+
     this.setState({
-      currentDate: this.state.currentDate.subtract(1, 'month'),
+      currentDate: currentDate.subtract(1, 'month'),
     });
   }
 
   render() {
-    return <div className="calendarContainer" style={{width: this.props.width, margin: 'auto'}}>
-      <CalendarHeader
-        currentDate={this.state.currentDate}
-        onClickPreviousMonth={this.handleClickPreviousMonth}
-        onClickNextMonth={this.handleClickNextMonth}
-      />
-      <CalendarBody height={this.props.height} width={this.props.width} currentDate={this.state.currentDate} />
-      <CalendarFooter />
-    </div>;
+    const { currentDate, histogramData } = this.state;
+    const { height, width } = this.props;
+
+    return (
+      <div className="calendarContainer" style={{ width, margin: 'auto' }}>
+        <CalendarHeader
+          currentDate={currentDate}
+          onClickPreviousMonth={this.handleClickPreviousMonth}
+          onClickNextMonth={this.handleClickNextMonth}
+        />
+        <CalendarBody
+          height={height}
+          width={width}
+          currentDate={currentDate}
+          histogramData={histogramData}
+        />
+        <CalendarFooter histogramData={histogramData} />
+      </div>
+    );
   }
 }
+
+CalendarHistogram.propTypes = {
+  height: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+};
 
 export default CalendarHistogram;
