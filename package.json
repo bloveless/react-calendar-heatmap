@@ -1,34 +1,40 @@
 {
-  "name": "histogram-calendar",
-  "version": "0.0.1",
+  "name": "@bloveless/react-calendar-heatmap",
+  "version": "0.0.1-beta.2",
   "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "build": "NODE_ENV=production npx babel src --out-dir dist --verbose && NODE_ENV=production npx node-sass src/scss -o dist/css",
+    "watch": "npx babel -w src --out-dir dist --verbose",
+    "sass": "npx node-sass src/scss -o dist/css",
+    "copy-files": "sed 's/\"private\": true,//g' package.json > dist/package.json && cp README.md dist/",
+    "local": "npm run build && npm run copy-files",
+    "release": "npm run build && npm run copy-files && cd dist && npm publish"
   },
-  "author": "",
+  "author": "Brennon Loveless <brennon.loveless@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.0.0-rc.1",
-    "@storybook/react": "^3.4.10",
-    "babel-bridge": "^1.12.11",
-    "css-loader": "^1.0.0",
+    "@babel/cli": "^7.0.0-rc.3",
+    "@babel/core": "^7.0.0-rc.3",
+    "@babel/preset-env": "^7.0.0-rc.3",
+    "@babel/preset-react": "^7.0.0-rc.3",
     "eslint": "^5.4.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
-    "node-sass": "^4.9.3",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.22.1"
+    "node-sass": "^4.9.3"
+  },
+  "peerDependencies": {
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
   },
   "dependencies": {
+    "date-fns": "^1.29.0",
     "lodash.range": "^3.2.0",
-    "moment": "^2.22.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-moment-proptypes": "^1.6.0"
+    "react-dom": "^16.4.2"
   }
 }

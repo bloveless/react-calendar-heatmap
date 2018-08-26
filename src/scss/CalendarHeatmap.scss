@@ -8,17 +8,17 @@
 
     .previousMonth, .nextMonth {
       button {
-       background:none !important;
-       color: rgb(0, 145, 207);
-       border:none;
-       padding: 5px 10px !important;
-       outline: none;
-       font: inherit;
-       cursor: pointer;
+        background:none !important;
+        color: rgb(0, 145, 207);
+        border:none;
+        padding: 5px 10px !important;
+        outline: none;
+        font: inherit;
+        cursor: pointer;
 
-       &:hover {
-         text-decoration: underline;
-       }
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
 
