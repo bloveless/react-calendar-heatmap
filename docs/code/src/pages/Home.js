@@ -33,8 +33,10 @@ const Home = () => {
       getData={getData}
       height={500}
       width={500}
+      minimumColor="0000FF"
+      maximumColor="FF0000"
     />
   );
-}
+};
 
 export default Home;

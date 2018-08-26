@@ -17,6 +17,8 @@ const CalendarBody = (props) => {
     width,
     currentDate,
     data,
+    minimumColor,
+    maximumColor,
   } = props;
 
   // Get the first Sunday before the beginning of the month. This is the day that the calendar starts.
@@ -32,11 +34,20 @@ const CalendarBody = (props) => {
 
     const dateDatum = data.find(datum => isSameDay(datum.date, firstDayOfCalendar));
 
+    // https://stackoverflow.com/questions/16360533/calculate-color-hex-having-2-colors-and-percent-position
     if (dateDatum) {
-      const percentage = dateDatum ? (dateDatum.percentage * 100) : 0;
-      const red = 255 * (percentage / 100);
-      const blue = 255 * ((100 - percentage) / 100);
-      backgroundColor = `rgb(${red}, 0, ${blue})`;
+      const percentage = dateDatum ? (dateDatum.percentage) : 0;
+
+      const hex = (x) => {
+        const hexString = x.toString(16);
+        return (hexString.length === 1) ? `0${hexString}` : hexString;
+      };
+
+      const r = Math.ceil(parseInt(maximumColor.substring(0, 2), 16) * percentage + parseInt(minimumColor.substring(0, 2), 16) * (1 - percentage));
+      const g = Math.ceil(parseInt(maximumColor.substring(2, 4), 16) * percentage + parseInt(minimumColor.substring(2, 4), 16) * (1 - percentage));
+      const b = Math.ceil(parseInt(maximumColor.substring(4, 6), 16) * percentage + parseInt(minimumColor.substring(4, 6), 16) * (1 - percentage));
+
+      backgroundColor = `#${hex(r)}${hex(g)}${hex(b)}`;
     }
 
     firstDayOfCalendar = addDays(firstDayOfCalendar, 1);
@@ -48,6 +59,8 @@ const CalendarBody = (props) => {
         key={`date-${month}-${date}`}
       >
         {date}
+        -
+        {dateDatum ? dateDatum.value : ''}
       </div>
     );
   });
@@ -64,6 +77,8 @@ CalendarBody.propTypes = {
     value: PropTypes.number.isRequired,
     percentage: PropTypes.number.isRequired,
   })),
+  minimumColor: PropTypes.string.isRequired,
+  maximumColor: PropTypes.string.isRequired,
 };
 
 CalendarBody.defaultProps = {

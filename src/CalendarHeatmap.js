@@ -75,12 +75,17 @@ class CalendarHeatmap extends Component {
 
   render() {
     const {
+      height,
+      width,
+      minimumColor,
+      maximumColor,
+    } = this.props;
+    const {
       currentDate,
       data,
       minimumValue,
       maximumValue,
     } = this.state;
-    const { height, width } = this.props;
 
     return (
       <div className="calendarContainer" style={{ width, margin: 'auto' }}>
@@ -94,10 +99,14 @@ class CalendarHeatmap extends Component {
           width={width}
           currentDate={currentDate}
           data={data}
+          minimumColor={minimumColor}
+          maximumColor={maximumColor}
         />
         <CalendarFooter
           minimumValue={minimumValue}
           maximumValue={maximumValue}
+          minimumColor={minimumColor}
+          maximumColor={maximumColor}
         />
       </div>
     );
@@ -109,11 +118,15 @@ CalendarHeatmap.propTypes = {
   getData: PropTypes.func,
   height: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
+  minimumColor: PropTypes.string,
+  maximumColor: PropTypes.string,
 };
 
 CalendarHeatmap.defaultProps = {
   startDate: (new Date()).toISOString(),
   getData: null,
+  minimumColor: '0000FF',
+  maximumColor: 'FF0000',
 };
 
 export default CalendarHeatmap;
