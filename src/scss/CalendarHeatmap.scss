@@ -39,6 +39,10 @@ $calendarBorder: 1px solid $borderColor;
     position: relative;
 
     .calendarBodyContent {
+      display: grid;
+      grid-template-columns: auto auto auto auto auto auto auto;
+      grid-template-rows: auto auto auto auto auto auto;
+
       border-bottom: $calendarBorder;
       position: absolute;
       overflow: hidden;
@@ -46,33 +50,26 @@ $calendarBorder: 1px solid $borderColor;
       right: 0;
       bottom: 0;
       left: 0;
-    }
 
-    .day {
-      float: left;
-      width: calc(100% / 7);
-      padding-bottom: calc(100% / 6);
-      position: relative;
-      overflow: hidden;
+      .day {
+        position: relative;
 
-      .dayContent {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translateX(-50%) translateY(-50%);
-      }
+        .dayContent {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translateX(-50%) translateY(-50%);
+        }
 
-      &.weekend {
-        background-color: rgb(245, 245, 245);
-      }
+        &.weekend {
+          background-color: rgb(245, 245, 245);
+        }
 
-      &.inactive {
-        /* background-color: rgb(186, 186, 186); */
-        color: rgb(196, 196, 196);
-      }
+        &.inactive {
+          color: rgb(196, 196, 196);
+        }
 
-      &.active {
-        /* background-color: rgb(233, 233, 233); */
+        &.active {}
       }
     }
   }

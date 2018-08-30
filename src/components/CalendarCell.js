@@ -16,6 +16,7 @@ const CalendarCell = (props) => {
     <div
       className={`day ${(day === 0 || day === 6) ? 'weekend' : ''} ${(month === activeMonth) ? 'active' : 'inactive'}`}
       style={{ backgroundColor, color: (backgroundColor) ? `#${textColor}` : null }}
+      title={value}
     >
       <div className="dayContent">
         {date}
