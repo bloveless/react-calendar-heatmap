@@ -28,14 +28,15 @@ const Home = () => {
   };
 
   return (
-    <CalendarHeatmap
-      startDate={startDate}
-      getData={getData}
-      height={500}
-      width={500}
-      minimumColor="0000FF"
-      maximumColor="FF0000"
-    />
+    <div style={{ width: 350, margin: 'auto' }}>
+      <CalendarHeatmap
+        startDate={startDate}
+        getData={getData}
+        textColor="FFFFFF"
+        minimumColor="0000FF"
+        maximumColor="FF0000"
+      />
+    </div>
   );
 };
 

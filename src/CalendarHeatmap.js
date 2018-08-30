@@ -75,8 +75,7 @@ class CalendarHeatmap extends Component {
 
   render() {
     const {
-      height,
-      width,
+      textColor,
       minimumColor,
       maximumColor,
     } = this.props;
@@ -88,17 +87,16 @@ class CalendarHeatmap extends Component {
     } = this.state;
 
     return (
-      <div className="calendarContainer" style={{ width, margin: 'auto' }}>
+      <div className="calendarContainer" style={{ margin: 'auto' }}>
         <CalendarHeader
           currentDate={currentDate}
           onClickPreviousMonth={this.handleClickPreviousMonth}
           onClickNextMonth={this.handleClickNextMonth}
         />
         <CalendarBody
-          height={height}
-          width={width}
           currentDate={currentDate}
           data={data}
+          textColor={textColor}
           minimumColor={minimumColor}
           maximumColor={maximumColor}
         />
@@ -116,8 +114,7 @@ class CalendarHeatmap extends Component {
 CalendarHeatmap.propTypes = {
   startDate: PropTypes.string,
   getData: PropTypes.func,
-  height: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
+  textColor: PropTypes.string,
   minimumColor: PropTypes.string,
   maximumColor: PropTypes.string,
 };
@@ -125,6 +122,7 @@ CalendarHeatmap.propTypes = {
 CalendarHeatmap.defaultProps = {
   startDate: (new Date()).toISOString(),
   getData: null,
+  textColor: 'FFFFFF',
   minimumColor: '0000FF',
   maximumColor: 'FF0000',
 };

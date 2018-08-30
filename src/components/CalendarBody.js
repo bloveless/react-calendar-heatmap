@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import range from 'lodash.range';
 import {
   addDays,
@@ -10,73 +10,84 @@ import {
   startOfWeek,
 } from 'date-fns';
 import PropTypes from 'prop-types';
+import CalendarCell from './CalendarCell';
 
-const CalendarBody = (props) => {
-  const {
-    height,
-    width,
-    currentDate,
-    data,
-    minimumColor,
-    maximumColor,
-  } = props;
+class CalendarBody extends Component {
+  static getHexString(value) {
+    const hexString = value.toString(16);
+    return (hexString.length === 1) ? `0${hexString}` : hexString;
+  }
 
-  // Get the first Sunday before the beginning of the month. This is the day that the calendar starts.
-  let firstDayOfCalendar = startOfWeek(startOfMonth(currentDate));
-  const activeMonth = getMonth(currentDate);
-  // 42 days = 6 weeks * 7 days
+  // https://stackoverflow.com/questions/16360533/calculate-color-hex-having-2-colors-and-percent-position
+  static getColorPercentage(minimumColor, maximumColor, percentage) {
+    const r = Math.ceil(parseInt(maximumColor.substring(0, 2), 16) * percentage + parseInt(minimumColor.substring(0, 2), 16) * (1 - percentage));
+    const g = Math.ceil(parseInt(maximumColor.substring(2, 4), 16) * percentage + parseInt(minimumColor.substring(2, 4), 16) * (1 - percentage));
+    const b = Math.ceil(parseInt(maximumColor.substring(4, 6), 16) * percentage + parseInt(minimumColor.substring(4, 6), 16) * (1 - percentage));
 
-  const table = range(42).map(() => {
-    let backgroundColor = null;
-    const day = getDay(firstDayOfCalendar);
-    const date = getDate(firstDayOfCalendar);
-    const month = getMonth(firstDayOfCalendar);
+    return `#${CalendarBody.getHexString(r)}${CalendarBody.getHexString(g)}${CalendarBody.getHexString(b)}`;
+  }
 
-    const dateDatum = data.find(datum => isSameDay(datum.date, firstDayOfCalendar));
+  render() {
+    const {
+      currentDate,
+      data,
+      textColor,
+      minimumColor,
+      maximumColor,
+    } = this.props;
 
-    // https://stackoverflow.com/questions/16360533/calculate-color-hex-having-2-colors-and-percent-position
-    if (dateDatum) {
-      const percentage = dateDatum ? (dateDatum.percentage) : 0;
+    // Get the first Sunday before the beginning of the month. This is the day that the calendar starts.
+    let firstDayOfCalendar = startOfWeek(startOfMonth(currentDate));
+    const activeMonth = getMonth(currentDate);
 
-      const hex = (x) => {
-        const hexString = x.toString(16);
-        return (hexString.length === 1) ? `0${hexString}` : hexString;
-      };
+    // 42 days = 6 weeks * 7 days
+    const table = range(42).map(() => {
+      let backgroundColor = null;
+      const day = getDay(firstDayOfCalendar);
+      const date = getDate(firstDayOfCalendar);
+      const month = getMonth(firstDayOfCalendar);
 
-      const r = Math.ceil(parseInt(maximumColor.substring(0, 2), 16) * percentage + parseInt(minimumColor.substring(0, 2), 16) * (1 - percentage));
-      const g = Math.ceil(parseInt(maximumColor.substring(2, 4), 16) * percentage + parseInt(minimumColor.substring(2, 4), 16) * (1 - percentage));
-      const b = Math.ceil(parseInt(maximumColor.substring(4, 6), 16) * percentage + parseInt(minimumColor.substring(4, 6), 16) * (1 - percentage));
+      const dateData = data.find(datum => isSameDay(datum.date, firstDayOfCalendar));
 
-      backgroundColor = `#${hex(r)}${hex(g)}${hex(b)}`;
-    }
+      if (dateData) {
+        const percentage = dateData ? (dateData.percentage) : 0;
+        backgroundColor = CalendarBody.getColorPercentage(minimumColor, maximumColor, percentage);
+      }
 
-    firstDayOfCalendar = addDays(firstDayOfCalendar, 1);
+      firstDayOfCalendar = addDays(firstDayOfCalendar, 1);
+
+      return (
+        <CalendarCell
+          key={`date-${month}-${date}`}
+          day={day}
+          month={month}
+          activeMonth={activeMonth}
+          textColor={textColor}
+          backgroundColor={backgroundColor}
+          date={date}
+          value={dateData ? dateData.value : null}
+        />
+      );
+    });
 
     return (
-      <div
-        className={`day ${(day === 0 || day === 6) ? 'weekend' : ''} ${(month === activeMonth) ? 'active' : 'inactive'}`}
-        style={{ backgroundColor }}
-        key={`date-${month}-${date}`}
-      >
-        {date}
-        -
-        {dateDatum ? dateDatum.value : ''}
+      <div className="calendarBody">
+        <div className="calendarBodyContent">
+          {table}
+        </div>
       </div>
     );
-  });
-
-  return <div className="calendarBody" style={{ height, width }}>{table}</div>;
-};
+  }
+}
 
 CalendarBody.propTypes = {
-  height: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
   currentDate: PropTypes.instanceOf(Date).isRequired,
   data: PropTypes.arrayOf(PropTypes.shape({
     date: PropTypes.instanceOf(Date).isRequired,
     value: PropTypes.number.isRequired,
     percentage: PropTypes.number.isRequired,
   })),
+  textColor: PropTypes.string.isRequired,
   minimumColor: PropTypes.string.isRequired,
   maximumColor: PropTypes.string.isRequired,
 };

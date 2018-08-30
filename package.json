@@ -10,9 +10,11 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx babel -w src --out-dir dist --verbose",
     "build": "NODE_ENV=production npx babel src --out-dir dist --verbose && NODE_ENV=production npx node-sass src/scss -o dist/css",
-    "watch": "npx babel -w src --out-dir dist --verbose",
+    "build:docs": "cd docs/code && NODE_ENV=production npm run build",
     "sass": "npx node-sass src/scss -o dist/css",
+    "sass:watch": "npx node-sass -w src/scss -o dist/css",
     "copy-files": "sed 's/\"private\": true,//g' package.json > dist/package.json && cp README.md dist/",
     "local": "npm run build && npm run copy-files",
     "release": "npm run build && npm run copy-files && cd dist && npm publish"

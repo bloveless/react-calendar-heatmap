@@ -1,9 +1,13 @@
+$borderColor: #efefef;
+$calendarBorder: 1px solid $borderColor;
+
 .calendarContainer {
+  border: $calendarBorder;
+
   .calendarHeader {
     padding: 10px 25px;
     background-color: rgb(245, 245, 245);
-    border: 2px solid rgb(230, 230, 230);
-    border-bottom: none;
+    border-bottom: $calendarBorder;
     text-align: center;
 
     .previousMonth, .nextMonth {
@@ -24,24 +28,39 @@
 
     .currentMonth {
       display: inline-block;
-      width: 200px;
+      padding: 0 15px;
     }
   }
 
   .calendarBody {
-    display: inline-block;
-    height: 100%;
     width: 100%;
-    border: 1px solid rgb(230, 230, 230);
+    padding-bottom: 100%;
     box-sizing: border-box;
+    position: relative;
+
+    .calendarBodyContent {
+      border-bottom: $calendarBorder;
+      position: absolute;
+      overflow: hidden;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
 
     .day {
-      display: inline-block;
-      height: calc(100% / 6);
+      float: left;
       width: calc(100% / 7);
-      border: 1px solid rgb(230, 230, 230);
-      box-sizing: border-box;
-      padding: 5px 0 0 5px;
+      padding-bottom: calc(100% / 6);
+      position: relative;
+      overflow: hidden;
+
+      .dayContent {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+      }
 
       &.weekend {
         background-color: rgb(245, 245, 245);
