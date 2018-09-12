@@ -26,6 +26,14 @@ class CalendarHeatmap extends Component {
     this.updateData();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { currentDate } = this.state;
+
+    if (currentDate !== prevState.currentDate) {
+      this.updateData();
+    }
+  }
+
   updateData() {
     const { getData } = this.props;
     const { currentDate } = this.state;
@@ -33,8 +41,8 @@ class CalendarHeatmap extends Component {
     if (typeof getData === 'function') {
       const data = getData(currentDate);
 
-      const minimumValue = Math.min(...data.map(datum => datum.value)) || 0;
-      const maximumValue = Math.max(...data.map(datum => datum.value)) || 0;
+      const minimumValue = Math.min(...data.map(datum => datum.value), 0);
+      const maximumValue = Math.max(...data.map(datum => datum.value), 0);
 
       // Convert values to percentages and the dates to date objects.
       const convertedData = data.map(datum => ({
@@ -57,8 +65,6 @@ class CalendarHeatmap extends Component {
 
     this.setState({
       currentDate: newDate,
-    }, () => {
-      this.updateData();
     });
   }
 
@@ -68,8 +74,6 @@ class CalendarHeatmap extends Component {
 
     this.setState({
       currentDate: newDate,
-    }, () => {
-      this.updateData();
     });
   }
 
@@ -87,7 +91,7 @@ class CalendarHeatmap extends Component {
     } = this.state;
 
     return (
-      <div className="calendarContainer" style={{ margin: 'auto' }}>
+      <div className="calendarContainer">
         <CalendarHeader
           currentDate={currentDate}
           onClickPreviousMonth={this.handleClickPreviousMonth}
@@ -123,7 +127,7 @@ CalendarHeatmap.defaultProps = {
   startDate: (new Date()).toISOString(),
   getData: null,
   textColor: 'FFFFFF',
-  minimumColor: '0000FF',
+  minimumColor: 'FFDDDD',
   maximumColor: 'FF0000',
 };
 

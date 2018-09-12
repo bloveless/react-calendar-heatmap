@@ -7,13 +7,13 @@ const CalendarHeader = (props) => {
 
   return (
     <div className="calendarHeader">
-      <span className="previousMonth">
+      <div className="previousMonth">
         <button type="button" title="Previous Month" onClick={onClickPreviousMonth}>&lt;</button>
-      </span>
-      <span className="currentMonth">{format(currentDate, 'MMMM YYYY')}</span>
-      <span className="nextMonth">
+      </div>
+      <div className="currentMonth">{format(currentDate, 'MMMM YYYY')}</div>
+      <div className="nextMonth">
         <button type="button" title="Next Month" onClick={onClickNextMonth}>&gt;</button>
-      </span>
+      </div>
     </div>
   );
 };

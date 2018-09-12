@@ -1,34 +1,48 @@
-$borderColor: #efefef;
+$fontFamily: Helvetica, Arial, sans-seri;
+$backgroundColor: rgb(245, 245, 245);
+$borderColor: darken(#efefef, 15);
+$darkBorderColor: $borderColor;
 $calendarBorder: 1px solid $borderColor;
 
 .calendarContainer {
-  border: $calendarBorder;
+  font-family: $fontFamily;
 
   .calendarHeader {
-    padding: 10px 25px;
-    background-color: rgb(245, 245, 245);
-    border-bottom: $calendarBorder;
+    background-color: $backgroundColor;
     text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+    border-top: 1px solid $borderColor;
 
     .previousMonth, .nextMonth {
       button {
-        background:none !important;
+        height: 2em;
+        width: 100%;
+        background-color: $backgroundColor;
         color: rgb(0, 145, 207);
         border:none;
-        padding: 5px 10px !important;
         outline: none;
         font: inherit;
         cursor: pointer;
 
         &:hover {
-          text-decoration: underline;
+          background-color: darken($backgroundColor, 15);
         }
       }
+    }
+
+    .previousMonth {
+      border-left: 1px solid $borderColor;
+    }
+
+    .nextMonth {
+      border-right: 1px solid $borderColor;
     }
 
     .currentMonth {
       display: inline-block;
       padding: 0 15px;
+      line-height: 2em;
     }
   }
 
@@ -43,7 +57,8 @@ $calendarBorder: 1px solid $borderColor;
       grid-template-columns: auto auto auto auto auto auto auto;
       grid-template-rows: auto auto auto auto auto auto;
 
-      border-bottom: $calendarBorder;
+      border-top: 1px solid $darkBorderColor;
+      border-left: 1px solid $darkBorderColor;
       position: absolute;
       overflow: hidden;
       top: 0;
@@ -53,6 +68,8 @@ $calendarBorder: 1px solid $borderColor;
 
       .day {
         position: relative;
+        border-right: 1px solid $darkBorderColor;
+        border-bottom: 1px solid $darkBorderColor;
 
         .dayContent {
           position: absolute;
@@ -66,7 +83,13 @@ $calendarBorder: 1px solid $borderColor;
         }
 
         &.inactive {
-          color: rgb(196, 196, 196);
+          background: repeating-linear-gradient(
+            -45deg,
+            #fff,
+            #fff 5px,
+            #efefef 5px,
+            #efefef 6px
+          );
         }
 
         &.active {}
@@ -76,7 +99,7 @@ $calendarBorder: 1px solid $borderColor;
 
   .calendarFooter {
     text-align: center;
-    margin-top: 5px;
+    padding-top: 5px;
 
     .minimumValue, .maximumValue {
       display: inline-block;

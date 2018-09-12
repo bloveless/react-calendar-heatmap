@@ -26,9 +26,9 @@ class CalendarBody extends Component {
    * https://stackoverflow.com/questions/16360533/calculate-color-hex-having-2-colors-and-percent-position
    */
   static getColorPercentage(minimumColor, maximumColor, percentage) {
-    const r = Math.ceil(parseInt(maximumColor.substring(0, 2), 16) * percentage + parseInt(minimumColor.substring(0, 2), 16) * (1 - percentage));
-    const g = Math.ceil(parseInt(maximumColor.substring(2, 4), 16) * percentage + parseInt(minimumColor.substring(2, 4), 16) * (1 - percentage));
-    const b = Math.ceil(parseInt(maximumColor.substring(4, 6), 16) * percentage + parseInt(minimumColor.substring(4, 6), 16) * (1 - percentage));
+    const r = Math.floor(parseInt(maximumColor.substring(0, 2), 16) * percentage + parseInt(minimumColor.substring(0, 2), 16) * (1 - percentage));
+    const g = Math.floor(parseInt(maximumColor.substring(2, 4), 16) * percentage + parseInt(minimumColor.substring(2, 4), 16) * (1 - percentage));
+    const b = Math.floor(parseInt(maximumColor.substring(4, 6), 16) * percentage + parseInt(minimumColor.substring(4, 6), 16) * (1 - percentage));
 
     return `#${CalendarBody.getHexString(r)}${CalendarBody.getHexString(g)}${CalendarBody.getHexString(b)}`;
   }
